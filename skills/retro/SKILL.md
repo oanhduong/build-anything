@@ -47,10 +47,85 @@ Parse the first word of `$ARGUMENTS` as the subcommand: `run`, `approve`, or `pr
 4. For a REJECTED candidate: delete `$PENDING_DIR/<id>.md` (discard — SELF-06:
    "a rejected lesson is discarded").
 5. Summarize: N approved (committed), M rejected.
+6. **Contribute-back prompt** — if N > 0, ask the human:
+   `Contribute these N lesson(s) back to build-anything so others benefit? (y/n)`
+   - If **n**: skip. Done.
+   - If **y**: run the contribute-back flow below.
 
 Note for the human: approved lessons are surfaced automatically by the existing
 hooks (`load-lessons.sh`, `lessons-post-write.sh`, `lessons-on-error.sh`) — there
 is NO separate conversion step (SELF-06).
+
+### Contribute-back flow (step 6, y path)
+
+First, detect whether `~/.claude` is already a clone of build-anything:
+
+```bash
+ORIGIN=$(git -C "$HOME/.claude" remote get-url origin 2>/dev/null || true)
+```
+
+**Case A — `$ORIGIN` contains `build-anything`** (they installed by cloning their fork):
+
+Parse the username and fork URL directly from the remote — no need to ask:
+```bash
+USERNAME=$(echo "$ORIGIN" | sed 's|.*github\.com[/:]||' | cut -d'/' -f1)
+FORK_URL="$ORIGIN"
+```
+
+Create the branch inside `~/.claude` itself, push, then return:
+```bash
+BRANCH="lesson/contrib-$(date -u +%Y%m%d-%H%M%S)"
+PREV=$(git -C "$HOME/.claude" rev-parse --abbrev-ref HEAD)
+
+git -C "$HOME/.claude" checkout -b "$BRANCH"
+
+# Copy each approved lesson onto the branch (ids from step 3)
+for id in <approved_ids>; do
+  git -C "$HOME/.claude" add "failure-lib/$id.md"
+done
+
+git -C "$HOME/.claude" commit -m "lesson: contribute $N lesson(s) from community"
+git -C "$HOME/.claude" push origin "$BRANCH"
+
+git -C "$HOME/.claude" checkout "$PREV"
+```
+
+**Case B — `$ORIGIN` does not contain `build-anything`** (standalone install, no local clone):
+
+Ask the human:
+- `Your GitHub username?`
+- `Have you forked build-anything yet? If not: https://github.com/oanhduong/build-anything/fork`
+
+Then run:
+```bash
+UPSTREAM_URL="https://github.com/oanhduong/build-anything.git"
+FORK_URL="https://github.com/<USERNAME>/build-anything.git"
+BRANCH="lesson/contrib-$(date -u +%Y%m%d-%H%M%S)"
+TMPDIR=$(mktemp -d)
+
+git -C "$TMPDIR" init
+git -C "$TMPDIR" remote add upstream "$UPSTREAM_URL"
+git -C "$TMPDIR" fetch upstream main --depth=1
+git -C "$TMPDIR" checkout -b "$BRANCH" upstream/main
+
+for id in <approved_ids>; do
+  cp "$LIB_DIR/$id.md" "$TMPDIR/failure-lib/$id.md"
+  git -C "$TMPDIR" add "failure-lib/$id.md"
+done
+
+git -C "$TMPDIR" commit -m "lesson: contribute $N lesson(s) from community"
+git -C "$TMPDIR" remote add fork "$FORK_URL"
+git -C "$TMPDIR" push fork "$BRANCH"
+
+rm -rf "$TMPDIR"
+```
+
+Both cases end with the same message (substitute real values):
+```
+Done. Open this URL to submit your PR:
+
+  https://github.com/oanhduong/build-anything/compare/main...<USERNAME>:build-anything:<BRANCH>?expand=1
+```
 
 ## `/retro prune` (SELF-07)
 
