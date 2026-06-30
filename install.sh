@@ -56,21 +56,23 @@ done
 echo "[OK] skills installed to ${CLAUDE_DIR}/skills/"
 
 # 4. Merge settings.json — append harness hooks to existing arrays (never clobber GSD hooks)
+# Deduplicates by (matcher, command) so re-running install never adds duplicate entries.
 if [ -f "${SETTINGS}" ]; then
   TMP=$(mktemp)
   jq -s '
+    def dedup: unique_by((.matcher // "") + "|" + (.hooks | map(.command) | join(",")));
     .[0] as $existing |
     .[1] as $harness |
     {
-      PreToolUse:   (($existing.hooks.PreToolUse   // []) + ($harness.hooks.PreToolUse   // [])),
-      PostToolUse:  (($existing.hooks.PostToolUse  // []) + ($harness.hooks.PostToolUse  // [])),
-      Stop:         (($existing.hooks.Stop         // []) + ($harness.hooks.Stop         // [])),
-      SessionStart: (($existing.hooks.SessionStart // []) + ($harness.hooks.SessionStart // []))
+      PreToolUse:   (($existing.hooks.PreToolUse   // []) + ($harness.hooks.PreToolUse   // []) | dedup),
+      PostToolUse:  (($existing.hooks.PostToolUse  // []) + ($harness.hooks.PostToolUse  // []) | dedup),
+      Stop:         (($existing.hooks.Stop         // []) + ($harness.hooks.Stop         // []) | dedup),
+      SessionStart: (($existing.hooks.SessionStart // []) + ($harness.hooks.SessionStart // []) | dedup)
     } as $merged_hooks |
     $existing * $harness | .hooks = $merged_hooks
   ' "${SETTINGS}" "${HARNESS_SETTINGS}" > "${TMP}"
   mv "${TMP}" "${SETTINGS}"
-  echo "[OK] settings.json merged (GSD hooks preserved, harness hooks appended)"
+  echo "[OK] settings.json merged (GSD hooks preserved, harness hooks appended, duplicates removed)"
 else
   cp "${HARNESS_SETTINGS}" "${SETTINGS}"
   echo "[OK] settings.json installed (fresh machine — no existing settings)"
