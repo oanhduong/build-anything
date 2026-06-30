@@ -4,10 +4,10 @@
 set -euo pipefail
 
 REPO="https://github.com/oanhduong/build-anything.git"
-TMPDIR=$(mktemp -d)
-trap 'rm -rf "$TMPDIR"' EXIT
+CLONE_DIR=$(mktemp -d)
+trap 'rm -rf "$CLONE_DIR"' EXIT
 
 echo "Fetching Signature Harness Kit..."
-git clone --depth=1 "$REPO" "$TMPDIR" --quiet
+git clone --depth=1 "$REPO" "$CLONE_DIR" --quiet
 
-bash "$TMPDIR/install.sh"
+bash "$CLONE_DIR/install.sh"
