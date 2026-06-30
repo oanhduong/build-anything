@@ -3,6 +3,7 @@ id: openpyxl-engine
 tags: [python, pandas, testing]
 when: on-error
 error-match: xlrd
+enforcement-type: verifier-check
 ---
 
 ## What happened

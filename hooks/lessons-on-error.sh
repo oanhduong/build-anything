@@ -3,6 +3,7 @@
 # When a Bash command exits non-zero, surfaces relevant 'when: on-error' lessons.
 # Matches using 'error-match' pattern if set, otherwise falls back to tags.
 # Output goes to Claude as inline context with the full lesson.
+# tag: context
 set -euo pipefail
 
 LESSONS_DIR="$HOME/.claude/failure-lib"

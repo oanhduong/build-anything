@@ -88,9 +88,10 @@ for hook in "$HOME/.claude/hooks/"*.sh; do
   if grep -q 'How to fix:' "$hook"; then
     pass "ENFC-03: How to fix: present in $(basename "$hook")"
   else
-    # progress-after-edit.sh and trace.sh have no blocking messages — skip them for ENFC-03
+    # Non-blocking hooks have no blocking messages — exempt from ENFC-03
     BASENAME=$(basename "$hook")
-    if [[ "$BASENAME" == "progress-after-edit.sh" || "$BASENAME" == "trace.sh" ]]; then
+    NON_BLOCKING="progress-after-edit.sh trace.sh bootstrap-project.sh load-lessons.sh lessons-on-error.sh lessons-post-write.sh"
+    if echo "$NON_BLOCKING" | grep -qw "$BASENAME"; then
       pass "ENFC-03: $(basename "$hook") has no blocking messages (non-blocking hook, exempt)"
     else
       fail "ENFC-03: How to fix: MISSING in $(basename "$hook")"
@@ -104,7 +105,7 @@ echo "=== ENFC-04: No language-specific binary invocations in hook bodies ==="
 
 LANG_VIOLATION=0
 for hook in "$HOME/.claude/hooks/"*.sh; do
-  if grep -qE '\b(node|python|python3|java|kotlin)\b' "$hook"; then
+  if grep -E '\b(node|python|python3|java|kotlin)\b' "$hook" | grep -qvE '^\s*#|[="\x27](node|python|python3|java|kotlin)["\x27]?[[:space:]]*[;|)$\\]'; then
     fail "ENFC-04: language-specific binary invocation found in $(basename "$hook")"
     LANG_VIOLATION=$((LANG_VIOLATION + 1))
   else

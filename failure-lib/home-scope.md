@@ -2,6 +2,7 @@
 id: home-scope
 tags: [bash, shell]
 when: pre-write
+enforcement-type: verifier-check
 ---
 
 ## What happened

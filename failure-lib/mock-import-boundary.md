@@ -2,6 +2,7 @@
 id: mock-import-boundary
 tags: [python, testing, mocking]
 when: pre-write
+enforcement-type: verifier-check
 ---
 
 ## What happened

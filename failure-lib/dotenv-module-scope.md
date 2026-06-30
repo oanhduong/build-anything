@@ -2,6 +2,7 @@
 id: dotenv-module-scope
 tags: [python, testing, environment]
 when: pre-write
+enforcement-type: verifier-check
 ---
 
 ## What happened

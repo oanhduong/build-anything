@@ -2,6 +2,7 @@
 id: static-test-fixture
 tags: [testing, fixtures, reproducibility]
 when: pre-write
+enforcement-type: verifier-check
 ---
 
 ## What happened

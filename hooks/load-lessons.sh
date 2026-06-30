@@ -3,6 +3,7 @@
 # Injects a compact lesson index into session context.
 # Full lessons at ~/.claude/failure-lib/<id>.md — read them when the index hints at relevance.
 # Non-blocking: always exits 0
+# tag: context
 set -euo pipefail
 
 LESSONS_DIR="$HOME/.claude/failure-lib"

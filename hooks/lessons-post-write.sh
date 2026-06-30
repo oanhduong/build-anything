@@ -2,6 +2,7 @@
 # lessons-post-write.sh — PostToolUse hook (Write|Edit)
 # After writing a file, surfaces relevant 'when: pre-write' lessons by file type.
 # Output goes to Claude as inline context — non-blocking, Claude applies if relevant.
+# tag: context
 set -euo pipefail
 
 LESSONS_DIR="$HOME/.claude/failure-lib"
