@@ -1,5 +1,9 @@
-# Runtime self-improve state (ephemeral counter, not handoff-relevant)
-.progress/lesson-hit-counts.json
-
-# Session scratchpad (ephemeral working files)
+# Runtime state and session artifacts (ephemeral, not part of the harness)
+.progress/
 scratchpad/
+
+# Internal development planning (not part of the shipped harness)
+.planning/
+
+# Pending lessons are local drafts — only approved lessons in failure-lib/ get committed
+failure-lib/pending/

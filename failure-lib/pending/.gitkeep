@@ -1,1 +1,0 @@
-# Keeps the pending candidate queue tracked when empty. Candidate lessons drafted by scripts/auto-distill.sh land here until approved via /retro approve.
