@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# replay-giavico-failures.sh — Phase 1 done command
+# test-enforcement.sh — Phase 1 done command
 # Proves ENFC-01..05: every Phase 0 failure category is blocked or documented
 # Output style: [PASS]/[FAIL] per test, "N passed, M failed" summary, exits 0 iff all pass
 set -uo pipefail

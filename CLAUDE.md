@@ -77,7 +77,7 @@ Sections:
 
 | Phase | Goal | Key Deliverable |
 |-------|------|-----------------|
-| 0 | Skeleton + Giavico PoC | preflight.sh exits 0; Giavico runs end-to-end |
+| 0 | Skeleton & Foundation | preflight.sh exits 0; all hooks installed and verified |
 | 1 | Enforcement Hardening | All Phase 0 failures auto-blocked; per-project bootstrap (SKEL-02) |
 | 2 | Context Plane | Long tasks survive context reset |
 | 3 | Self-Improve Loop | Lessons distilled and committed automatically |
@@ -87,5 +87,3 @@ Sections:
 
 - Requirements: `.planning/REQUIREMENTS.md`
 - Roadmap: `.planning/ROADMAP.md`
-- Phase 0 context: `.planning/phases/00-skeleton-giavico-poc/00-CONTEXT.md`
-- Research: `.planning/phases/00-skeleton-giavico-poc/00-RESEARCH.md`

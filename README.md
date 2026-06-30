@@ -95,7 +95,7 @@ Runs 7 checks: exit-code-2 blocking, stderr-not-stdout, chmod+x on all hooks, PR
 
 | Phase | Goal | Status |
 |-------|------|--------|
-| 0 | Skeleton + Giavico PoC | Complete |
+| 0 | Skeleton & Foundation | Complete |
 | 1 | Enforcement Hardening | Complete |
 | 2 | Context Plane | Complete |
 | 3 | Self-Improve Loop | Complete |
