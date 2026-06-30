@@ -93,6 +93,15 @@ else
   echo "[OK] ~/.claude git repo initialized with initial harness commit"
 fi
 
+# 7. Propagate fork remote — lets /retro approve detect Case A (contribute-back without tmpdir)
+SOURCE_ORIGIN=$(git -C "${HARNESS_DIR}" remote get-url origin 2>/dev/null || true)
+if echo "${SOURCE_ORIGIN}" | grep -q "build-anything"; then
+  if ! git -C "${CLAUDE_DIR}" remote get-url origin > /dev/null 2>&1; then
+    git -C "${CLAUDE_DIR}" remote add origin "${SOURCE_ORIGIN}"
+    echo "[OK] ~/.claude remote set to ${SOURCE_ORIGIN} (enables lesson contribute-back)"
+  fi
+fi
+
 echo ""
 echo "=== Install complete ==="
 echo ""

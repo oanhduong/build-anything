@@ -17,13 +17,19 @@ Every hook, skill, and lesson lives here. `install.sh` merges everything into `~
 ## Quick Start
 
 ```bash
-git clone git@github.com:oanhduong/build-anything.git
-cd build-anything
-bash install.sh
-bash preflight.sh   # all 7 checks must exit 0
+bash <(curl -fsSL https://raw.githubusercontent.com/oanhduong/build-anything/master/get.sh)
 ```
 
 Then start a Claude Code session — hooks fire automatically.
+
+**Want to contribute lessons back?** Fork first, then install from your fork so the remote is wired up automatically:
+
+```bash
+# 1. Fork https://github.com/oanhduong/build-anything on GitHub
+git clone https://github.com/<YOUR_USERNAME>/build-anything.git
+cd build-anything
+bash install.sh
+```
 
 ## What's Installed
 
