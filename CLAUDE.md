@@ -1,4 +1,4 @@
-# Signature Harness Kit — Project Context
+# Build Anything — Project Context
 
 > Stable reference. No dynamic content. Dynamic state lives in .progress/PROGRESS.md.
 
