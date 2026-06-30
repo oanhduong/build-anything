@@ -27,9 +27,16 @@ check "SKEL-03b: stderr-not-stdout template" bash "${HARNESS_DIR}/scripts/test-s
 # (c) SKEL-03c / SKEL-07: chmod +x on all hooks installed in ~/.claude/hooks/
 check "SKEL-03c: chmod +x on all installed hooks" bash -c 'for f in ~/.claude/hooks/*.sh; do [ -x "$f" ] || { echo "Not executable: $f" >&2; exit 1; }; done; [ -f ~/.claude/hooks/common.sh ]'
 
-# (d) SKEL-03d: PROGRESS file schema in place
-PROGRESS_FILE="${HARNESS_DIR}/.progress/PROGRESS.md"
-check "SKEL-03d: PROGRESS schema in place" bash -c "grep -q 'CURRENT STATE' '${PROGRESS_FILE}' && grep -q 'HISTORY LOG' '${PROGRESS_FILE}' && grep -q 'BLOCKED_COUNT' '${PROGRESS_FILE}' && grep -q 'VERIFY_CMD' '${PROGRESS_FILE}'"
+# (d) SKEL-03d: bootstrap hook creates PROGRESS.md with correct schema
+check "SKEL-03d: PROGRESS schema in place" bash -c '
+  TMPPROJECT=$(mktemp -d)
+  trap "rm -rf \"$TMPPROJECT\"" EXIT
+  (cd "$TMPPROJECT" && bash ~/.claude/hooks/bootstrap-project.sh >/dev/null 2>&1)
+  grep -q "CURRENT STATE"  "$TMPPROJECT/.progress/PROGRESS.md" &&
+  grep -q "HISTORY LOG"    "$TMPPROJECT/.progress/PROGRESS.md" &&
+  grep -q "BLOCKED_COUNT"  "$TMPPROJECT/.progress/PROGRESS.md" &&
+  grep -q "VERIFY_CMD"     "$TMPPROJECT/.progress/PROGRESS.md"
+'
 
 # (e) SKEL-03e: stub-reject hook fires on pass$/TODO/NotImplemented
 check "SKEL-03e: stub-reject hook fires on stubs" bash "${HARNESS_DIR}/scripts/test-stub-reject.sh"
