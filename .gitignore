@@ -1,0 +1,2 @@
+# Runtime self-improve state (ephemeral counter, not handoff-relevant)
+.progress/lesson-hit-counts.json
