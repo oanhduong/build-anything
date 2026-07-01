@@ -34,7 +34,7 @@ Phase 4 (heavy retrieval) gate remains closed pending a measured grep bottleneck
 
 **Milestone goal:** Eliminate generator self-grading and unconstrained execution — every verdict is written by a hook from verifier output, every spec is confirmed by a human-computed token.
 
-- [ ] **Phase 5: Verifier Independence** — stop-hook uses VERIFY_CMD as cheap pre-filter, then delegates per-criterion semantic check to independent verifier subagent; VERDICTS.md written by PostToolUse hook, blocked for manual Write/Edit
+- [x] **Phase 5: Verifier Independence** — stop-hook uses VERIFY_CMD as cheap pre-filter, then delegates per-criterion semantic check to independent verifier subagent; VERDICTS.md written by PostToolUse hook, blocked for manual Write/Edit (completed 2026-07-01)
 - [ ] **Phase 6: Spec Gate** — Write/Edit blocked until human-confirmed SPEC.md with valid sha256 confirm-token exists; generator cannot write a token that stub-reject accepts without going through /spec
 - [ ] **Phase 7: Intent-Aware Failure Library** — verifier criterion failures are distilled with criterion tag so lessons link to what was semantically violated, not just what exited non-zero
 - [ ] **Phase 8: Structured BLOCKED Exit** — retry ceiling writes BLOCKED-REPORT.md with verdicts; WRITE_COUNT proxy meter enforces COST_CEILING before retries are exhausted
@@ -97,7 +97,7 @@ VERIFY_CMD is kept as a mechanical pre-filter only. It is NOT a correctness orac
 
 **Platform-replaceable**: NO — verdicts-capture.sh depends on PostToolUse hook receiving `tool_response` content from subagent invocations. If Claude Code changes how hook inputs are structured or removes tool_response from PostToolUse, the capture mechanism must be redesigned. The VERDICTS.md format and stop-hook logic are portable; the capture step is not.
 
-**Plans:** 4 plans
+**Plans:** 4/4 plans complete
 Plans:
 - [ ] 05-01-PLAN.md — Wave 0: test scaffold (test-verifier-independence.sh, verdicts-capture.sh scaffold, NON_BLOCKING exemption)
 - [ ] 05-02-PLAN.md — Wave 1: capture pipeline (verdicts-capture.sh impl, verifier.md schema, stub-reject.sh VERDICTS.md block)
@@ -263,7 +263,7 @@ VERIFY_CMD in PROGRESS.md functions as the mechanical pre-filter described in Ph
 | 1. Enforcement Hardening | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 2. Context Plane | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 3. Self-Improve Loop | v0 Baseline | Complete | Complete | 2026-06-29 |
-| 5. Verifier Independence | v1.0 Integrity Layer | 4 plans | In progress | — |
+| 5. Verifier Independence | 4/4 | Complete   | 2026-07-01 | — |
 | 6. Spec Gate | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 7. Intent-Aware Library | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 8. Structured BLOCKED Exit | v1.0 Integrity Layer | 0/TBD | Not started | — |

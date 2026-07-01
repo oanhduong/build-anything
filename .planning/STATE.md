@@ -3,9 +3,9 @@
 ## Current Position
 
 Phase: 05-verifier-independence
-Plan: 03 of 4 complete
-Status: In progress
-Last activity: 2026-07-01 — Phase 05 Plan 03 complete (two-gate stop-hook: Gate 1 VERIFY_CMD pre-filter + Gate 2 per-criterion VERDICTS.md check; all 6 verifier-independence tests GREEN)
+Plan: 04 of 4 complete
+Status: Complete
+Last activity: 2026-07-01 — Phase 05 Plan 04 complete (verdicts-capture.sh wired as PostToolUse all-tools hook; install.sh deploys to ~/.claude; 6/6 + 32/32 tests GREEN; Phase 5 Verifier Independence ships)
 
 ## Project Reference
 
@@ -23,6 +23,7 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - Generator cannot self-grade: stop-hook exits 2 unless every SPEC.md criterion has VERDICT: PASS in VERDICTS.md
 - Phase 05 Plan 01: TDD anchor created — test-verifier-independence.sh has 6 tests (all 6 GREEN after Wave 2)
 - verdicts-capture.sh fully implemented (Wave 1); stop-hook two-gate flow implemented (Wave 2)
+- Phase 05 Plan 04: verdicts-capture.sh wired as PostToolUse all-tools hook in settings.json; deployed to ~/.claude via install.sh; 32/32 enforcement tests green
 
 ## Decisions
 
@@ -35,3 +36,5 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - stop-hook Gate 2: while-read process-substitution (not mapfile) for bash 3.2 compat; last-match awk for duplicate verdict blocks
 - BLOCKED_COUNT increments on criterion-gate failure (not just VERIFY_CMD failure); auto-distill only fires on all-PASS
 - SPEC.md-absent path exits 0 — backward-compat for pre-Phase-5 sessions preserved
+- verdicts-capture.sh positioned before trace.sh in PostToolUse so trace.sh remains the final hook
+- No-matcher PostToolUse entry (omit field entirely) = fires on all tool calls — same pattern as trace.sh
