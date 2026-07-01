@@ -22,6 +22,33 @@ if [[ "$FILE_PATH_EARLY" == *".progress/VERDICTS.md"* ]]; then
     "Verdicts must originate from verifier subagent output captured by verdicts-capture.sh. Invoke the verifier subagent per criterion instead."
 fi
 
+# GATE-02/GATE-03: Block Write/Edit until a human-confirmed .progress/SPEC.md exists with a valid confirm-token.
+# EXEMPTION (Pitfall 1 — self-blocking): writes targeting .progress/SPEC.md ARE the authorized creation
+# path (same reasoning as verdicts-capture.sh owning VERDICTS.md). Skip all three gate checks for that path.
+SPEC_FILE="${PWD}/.progress/SPEC.md"
+if [[ "$FILE_PATH_EARLY" != *".progress/SPEC.md"* ]]; then
+  # Check 1 (GATE-02): SPEC.md absent
+  if [ ! -f "$SPEC_FILE" ]; then
+    block "SPEC.md absent" \
+      "Run /spec to create a human-confirmed spec before writing code"
+  fi
+  # Check 2 (GATE-03): SPEC.md present but no confirm-token field (a malformed/criteria-less spec
+  # cannot have a valid token, so this check subsumes 'no ## Acceptance Criteria section')
+  STORED_TOKEN=$(grep '^confirm-token:' "$SPEC_FILE" 2>/dev/null | cut -d: -f2- | xargs 2>/dev/null || echo "")
+  if [ -z "$STORED_TOKEN" ]; then
+    block "SPEC.md unconfirmed" \
+      "Run /spec and type 'confirm' to generate the confirm-token"
+  fi
+  # Check 3 (GATE-02 integrity): confirm-token present but criteria text changed after confirmation.
+  # Re-derive token with the SAME awk+sed+shasum pipeline the /spec skill uses.
+  COMPUTED_TOKEN=$(awk '/^## Acceptance Criteria$/{in_sec=1;next} in_sec && /^## /{exit} in_sec{print}' "$SPEC_FILE" \
+    | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | shasum -a 256 | cut -d' ' -f1)
+  if [ "$STORED_TOKEN" != "$COMPUTED_TOKEN" ]; then
+    block "SPEC.md token invalid — criteria modified after confirmation" \
+      "Re-run /spec to confirm the updated criteria"
+  fi
+fi
+
 # PLAN-01: Block Write/Edit if no verify command is declared in PROGRESS
 PROGRESS_FILE="${PWD}/.progress/PROGRESS.md"
 if [ -f "$PROGRESS_FILE" ]; then
