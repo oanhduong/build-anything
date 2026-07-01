@@ -182,6 +182,73 @@ else
 fi
 
 # ============================================================
+# BINARY F: Multi-section SPEC.md skill-shaped round-trip
+# Reproduces skill STEP 4-5 write-then-patch procedure exactly.
+# Exercises the awk /^## /{exit} boundary: ## Acceptance Criteria is followed by
+# ## Verify Command, so the token must cover only the criteria section.
+# ============================================================
+TMP=$(mktemp -d); mkdir -p "$TMP/.progress"
+cat > "$TMP/.progress/PROGRESS.md" << 'PROG'
+CURRENT_TASK: roundtrip
+VERIFY_CMD: exit 0
+BLOCKED_COUNT: 0
+
+## CURRENT STATE
+
+## HISTORY LOG
+PROG
+
+# Step 1: Write SPEC.md with confirm-token: PENDING (skill STEP 4 procedure)
+SPEC_FILE_F="$TMP/.progress/SPEC.md"
+cat > "$SPEC_FILE_F" << 'SPEC'
+---
+task: roundtrip-test
+confirm-token: PENDING
+confirmed-at: 2026-07-01T00:00:00Z
+---
+
+## Risk List
+- something could go wrong
+
+## Acceptance Criteria
+1. test -f src/foo.sh
+2. bash scripts/test-spec-gate.sh
+
+## Verify Command
+bash scripts/test-spec-gate.sh — exits 0 when all binary tests pass
+SPEC
+
+# Step 2: Compute token via CANONICAL pipeline (skill STEP 5 procedure)
+# The awk /^## /{exit} boundary stops extraction at "## Verify Command"
+TOKEN_F=$(awk '/^## Acceptance Criteria$/{in_sec=1;next} in_sec && /^## /{exit} in_sec{print}' "$SPEC_FILE_F" \
+  | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | shasum -a 256 | cut -d' ' -f1)
+sed -i.bak "s|^confirm-token: PENDING|confirm-token: ${TOKEN_F}|" "$SPEC_FILE_F" && rm -f "${SPEC_FILE_F}.bak"
+
+# Step 3: Assert Write passes (gate open — valid multi-section SPEC.md with patched token)
+MOCK='{"tool_name":"Write","tool_input":{"path":"src/foo.sh","content":"echo hi\n"}}'
+ERRFILE=$(mktemp)
+cd "$TMP"; echo "$MOCK" | "$STUB_REJECT" >/dev/null 2>"$ERRFILE"; EXITCODE=$?; cd - >/dev/null
+ERRTXT=$(cat "$ERRFILE"); rm -f "$ERRFILE"
+
+if [ "$EXITCODE" -eq 0 ]; then
+  pass "Binary F (round-trip accept): multi-section SPEC.md with patched token passes Write gate"
+else
+  fail "Binary F (round-trip accept): exit=$EXITCODE; expected exit 0 for valid skill-shaped SPEC.md. Got: '$(echo "$ERRTXT" | head -3)'"
+fi
+
+# Step 4: Tamper with criteria and assert Write is blocked
+sed -i.bak "s|test -f src/foo.sh|test -f src/TAMPERED.sh|" "$SPEC_FILE_F" && rm -f "${SPEC_FILE_F}.bak"
+ERRFILE=$(mktemp)
+cd "$TMP"; echo "$MOCK" | "$STUB_REJECT" >/dev/null 2>"$ERRFILE"; EXITCODE=$?; cd - >/dev/null
+ERRTXT=$(cat "$ERRFILE"); rm -f "$ERRFILE"; rm -rf "$TMP"
+
+if [ "$EXITCODE" -eq 2 ] && echo "$ERRTXT" | grep -qF "SPEC.md token invalid"; then
+  pass "Binary F (tamper detect): Write blocked after criteria tampering in multi-section SPEC.md"
+else
+  fail "Binary F (tamper detect): exit=$EXITCODE; expected exit 2 with 'SPEC.md token invalid'. Got: '$(echo "$ERRTXT" | head -3)'"
+fi
+
+# ============================================================
 echo ""
 echo "Results: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
