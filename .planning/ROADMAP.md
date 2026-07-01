@@ -271,7 +271,7 @@ Plans:
 | 2. Context Plane | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 3. Self-Improve Loop | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 5. Verifier Independence | 4/4 | Complete    | 2026-07-01 | — |
-| 6. Spec Gate | 4/4 | Complete   | 2026-07-01 | — |
+| 6. Spec Gate | 4/4 | Complete    | 2026-07-01 | — |
 | 7. Intent-Aware Library | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 8. Structured BLOCKED Exit | v1.0 Integrity Layer | 0/TBD | Not started | — |
 
