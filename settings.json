@@ -52,6 +52,14 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash ~/.claude/hooks/verdicts-capture.sh"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
             "command": "bash ~/.claude/hooks/trace.sh"
           }
         ]
