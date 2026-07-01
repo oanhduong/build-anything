@@ -160,6 +160,13 @@ VERIFY_CMD in PROGRESS.md functions as the mechanical pre-filter described in Ph
 
 **Platform-replaceable**: PARTIAL — stub-reject.sh token check is pure shell (sha256 via shasum -a 256, available on macOS/Linux), platform-independent. The `/spec` skill depends on Claude Code skill invocation format; if slash command primitive changes, skill file must be updated. Token mechanism itself is portable.
 
+**Plans:** 4 plans (waves 0-3)
+Plans:
+- [ ] 06-01-PLAN.md — Wave 0: RED anchor (test-spec-gate.sh Binary A/B/C/D/E) + /spec skill scaffold
+- [ ] 06-02-PLAN.md — Wave 1: stub-reject.sh SPEC gate (absent/unconfirmed/token-invalid + .progress/SPEC.md exemption)
+- [ ] 06-03-PLAN.md — Wave 2: full /spec skill (interview, confirm gate, shasum token, SPEC.md write, VERIFY_CMD) + Binary F round-trip
+- [ ] 06-04-PLAN.md — Wave 3: install + full suite + human-verify live /spec happy path
+
 ---
 
 ### Phase 7: Intent-Aware Failure Library
@@ -263,8 +270,8 @@ VERIFY_CMD in PROGRESS.md functions as the mechanical pre-filter described in Ph
 | 1. Enforcement Hardening | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 2. Context Plane | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 3. Self-Improve Loop | v0 Baseline | Complete | Complete | 2026-06-29 |
-| 5. Verifier Independence | 4/4 | Complete   | 2026-07-01 | — |
-| 6. Spec Gate | v1.0 Integrity Layer | 0/TBD | Not started | — |
+| 5. Verifier Independence | 4/4 | Complete    | 2026-07-01 | — |
+| 6. Spec Gate | v1.0 Integrity Layer | 0/4 | Planned | — |
 | 7. Intent-Aware Library | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 8. Structured BLOCKED Exit | v1.0 Integrity Layer | 0/TBD | Not started | — |
 
