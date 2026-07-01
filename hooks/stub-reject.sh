@@ -14,6 +14,14 @@ if [[ "$TOOL_NAME" != "Write" && "$TOOL_NAME" != "Edit" && "$TOOL_NAME" != "Mult
   exit 0
 fi
 
+# VERIF-03 integrity: VERDICTS.md is exclusively written by verdicts-capture.sh hook
+# Any direct Write/Edit to .progress/VERDICTS.md is a self-grading attempt — block unconditionally
+FILE_PATH_EARLY=$(echo "$INPUT" | jq -r '.tool_input.path // .tool_input.file_path // empty' 2>/dev/null || echo "")
+if [[ "$FILE_PATH_EARLY" == *".progress/VERDICTS.md"* ]]; then
+  block "VERDICTS.md is hook-written; do not write manually" \
+    "Verdicts must originate from verifier subagent output captured by verdicts-capture.sh. Invoke the verifier subagent per criterion instead."
+fi
+
 # PLAN-01: Block Write/Edit if no verify command is declared in PROGRESS
 PROGRESS_FILE="${PWD}/.progress/PROGRESS.md"
 if [ -f "$PROGRESS_FILE" ]; then
