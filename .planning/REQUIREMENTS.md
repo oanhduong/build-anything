@@ -9,9 +9,9 @@ Milestone v1.0 — Integrity Layer. Continues from validated Phase 0–3 baselin
 
 ### Verifier Independence (A1)
 
-- [ ] **VERIF-01**: stop-hook invokes independent verifier subagent per acceptance criterion — generator cannot score its own output
-- [ ] **VERIF-02**: verifier subagent returns structured `VERDICT: PASS|FAIL` per criterion with evidence string, not just command exit code
-- [ ] **VERIF-03**: stop-hook reads acceptance criteria list from SPEC artifact and passes each criterion to verifier individually
+- [x] **VERIF-01**: stop-hook invokes independent verifier subagent per acceptance criterion — generator cannot score its own output
+- [x] **VERIF-02**: verifier subagent returns structured `VERDICT: PASS|FAIL` per criterion with evidence string, not just command exit code
+- [x] **VERIF-03**: stop-hook reads acceptance criteria list from SPEC artifact and passes each criterion to verifier individually
 
 ### Spec + Plan Gate (A2 + B)
 
@@ -52,9 +52,9 @@ Deferred — not in this milestone roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VERIF-01 | Phase 5 | Pending |
-| VERIF-02 | Phase 5 | Pending |
-| VERIF-03 | Phase 5 | Pending |
+| VERIF-01 | Phase 5 | Complete |
+| VERIF-02 | Phase 5 | Complete |
+| VERIF-03 | Phase 5 | Complete |
 | GATE-01 | Phase 6 | Pending |
 | GATE-02 | Phase 6 | Pending |
 | GATE-03 | Phase 6 | Pending |
