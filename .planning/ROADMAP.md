@@ -97,6 +97,13 @@ VERIFY_CMD is kept as a mechanical pre-filter only. It is NOT a correctness orac
 
 **Platform-replaceable**: NO — verdicts-capture.sh depends on PostToolUse hook receiving `tool_response` content from subagent invocations. If Claude Code changes how hook inputs are structured or removes tool_response from PostToolUse, the capture mechanism must be redesigned. The VERDICTS.md format and stop-hook logic are portable; the capture step is not.
 
+**Plans:** 4 plans
+Plans:
+- [ ] 05-01-PLAN.md — Wave 0: test scaffold (test-verifier-independence.sh, verdicts-capture.sh scaffold, NON_BLOCKING exemption)
+- [ ] 05-02-PLAN.md — Wave 1: capture pipeline (verdicts-capture.sh impl, verifier.md schema, stub-reject.sh VERDICTS.md block)
+- [ ] 05-03-PLAN.md — Wave 2: stop-hook two-gate flow (VERIFY_CMD pre-filter + per-criterion VERDICTS.md check)
+- [ ] 05-04-PLAN.md — Wave 3: settings.json wire + install + full test suite validation
+
 ---
 
 ### Phase 6: Spec Gate
@@ -256,7 +263,7 @@ VERIFY_CMD in PROGRESS.md functions as the mechanical pre-filter described in Ph
 | 1. Enforcement Hardening | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 2. Context Plane | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 3. Self-Improve Loop | v0 Baseline | Complete | Complete | 2026-06-29 |
-| 5. Verifier Independence | v1.0 Integrity Layer | 0/TBD | Not started | — |
+| 5. Verifier Independence | v1.0 Integrity Layer | 4 plans | In progress | — |
 | 6. Spec Gate | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 7. Intent-Aware Library | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 8. Structured BLOCKED Exit | v1.0 Integrity Layer | 0/TBD | Not started | — |
