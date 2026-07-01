@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Integrity Layer
-status: executing
-last_updated: "2026-07-01T09:06:33.114Z"
-last_activity: 2026-07-01 — Phase 06 Plan 03 complete (full /spec skill with literal-confirm gate + Binary F round-trip; 7/7 spec-gate tests GREEN)
+status: completed
+last_updated: "2026-07-01T09:10:10.129Z"
+last_activity: 2026-07-01 — Phase 06 Plan 04 complete (live verification; 7/7 spec-gate GREEN, 32/32 enforcement GREEN, preflight 7/7; GATE-01 + GATE-04 closed; Phase 6 complete)
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # State: build-anything
@@ -17,9 +17,9 @@ progress:
 ## Current Position
 
 Phase: 06-spec-gate
-Plan: 03 of 4 complete
-Status: In Progress
-Last activity: 2026-07-01 — Phase 06 Plan 03 complete (full /spec skill with literal-confirm gate + Binary F round-trip; 7/7 spec-gate tests GREEN)
+Plan: 04 of 4 complete
+Status: Complete
+Last activity: 2026-07-01 — Phase 06 Plan 04 complete (live verification; 7/7 spec-gate GREEN, 32/32 enforcement GREEN, preflight 7/7; GATE-01 + GATE-04 closed; Phase 6 complete)
 
 ## Project Reference
 
@@ -41,6 +41,7 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - Phase 06 Plan 01: TDD anchor created — test-spec-gate.sh has 5 tests (A/B/C RED vs wave 0; D/E GREEN); skills/spec/SKILL.md scaffold deployed by install.sh glob
 - Phase 06 Plan 02: stub-reject.sh SPEC gate checks inserted (GATE-02/GATE-03); Binary A/B/C/D/E all GREEN; 32/32 enforcement tests pass
 - Phase 06 Plan 03: full /spec skill implemented (7 steps: interview, confirm gate, write-then-patch token, VERIFY_CMD derivation); Binary F round-trip added; 7/7 spec-gate tests GREEN
+- Phase 06 Plan 04: live verification — install.sh deployes harness to ~/.claude; all suites GREEN (7/7 spec-gate, 32/32 enforcement, 6/6 verifier independence, 7/7 preflight); GATE-01 + GATE-04 closed; Phase 6 complete
 
 ## Decisions
 
@@ -62,3 +63,6 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - [Phase 06-spec-gate]: .progress/SPEC.md self-write exempt from SPEC gate (same pattern as VERDICTS.md)
 - [Phase 06-spec-gate]: Token computed from WRITTEN file (write PENDING then awk+sed+shasum patch) ensures byte-identity with stub-reject — eliminating normalization drift by construction
 - [Phase 06-spec-gate]: VERIFY_CMD derivation via sed Bash (not Edit tool) avoids Pitfall 5: triggering stub-reject on PROGRESS.md write before SPEC.md exists
+- [Phase 06-spec-gate Plan 04]: deploy-only plan — Task 1 produces no source-repo commit; auto-approve checkpoint:human-verify via Binary F + structural SKILL.md verification
+- [Phase 06-spec-gate]: Task 1 deploy-only: install.sh deploys to ~/.claude; no source-repo commit needed
+- [Phase 06-spec-gate]: auto-approve checkpoint:human-verify via Binary F pass + SKILL.md structural correctness as automation proxy

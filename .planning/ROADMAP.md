@@ -35,7 +35,7 @@ Phase 4 (heavy retrieval) gate remains closed pending a measured grep bottleneck
 **Milestone goal:** Eliminate generator self-grading and unconstrained execution — every verdict is written by a hook from verifier output, every spec is confirmed by a human-computed token.
 
 - [x] **Phase 5: Verifier Independence** — stop-hook uses VERIFY_CMD as cheap pre-filter, then delegates per-criterion semantic check to independent verifier subagent; VERDICTS.md written by PostToolUse hook, blocked for manual Write/Edit (completed 2026-07-01)
-- [ ] **Phase 6: Spec Gate** — Write/Edit blocked until human-confirmed SPEC.md with valid sha256 confirm-token exists; generator cannot write a token that stub-reject accepts without going through /spec
+- [x] **Phase 6: Spec Gate** — Write/Edit blocked until human-confirmed SPEC.md with valid sha256 confirm-token exists; generator cannot write a token that stub-reject accepts without going through /spec (completed 2026-07-01)
 - [ ] **Phase 7: Intent-Aware Failure Library** — verifier criterion failures are distilled with criterion tag so lessons link to what was semantically violated, not just what exited non-zero
 - [ ] **Phase 8: Structured BLOCKED Exit** — retry ceiling writes BLOCKED-REPORT.md with verdicts; WRITE_COUNT proxy meter enforces COST_CEILING before retries are exhausted
 
@@ -160,7 +160,7 @@ VERIFY_CMD in PROGRESS.md functions as the mechanical pre-filter described in Ph
 
 **Platform-replaceable**: PARTIAL — stub-reject.sh token check is pure shell (sha256 via shasum -a 256, available on macOS/Linux), platform-independent. The `/spec` skill depends on Claude Code skill invocation format; if slash command primitive changes, skill file must be updated. Token mechanism itself is portable.
 
-**Plans:** 2/4 plans executed
+**Plans:** 4/4 plans complete
 Plans:
 - [ ] 06-01-PLAN.md — Wave 0: RED anchor (test-spec-gate.sh Binary A/B/C/D/E) + /spec skill scaffold
 - [ ] 06-02-PLAN.md — Wave 1: stub-reject.sh SPEC gate (absent/unconfirmed/token-invalid + .progress/SPEC.md exemption)
@@ -271,7 +271,7 @@ Plans:
 | 2. Context Plane | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 3. Self-Improve Loop | v0 Baseline | Complete | Complete | 2026-06-29 |
 | 5. Verifier Independence | 4/4 | Complete    | 2026-07-01 | — |
-| 6. Spec Gate | 2/4 | In Progress|  | — |
+| 6. Spec Gate | 4/4 | Complete   | 2026-07-01 | — |
 | 7. Intent-Aware Library | v1.0 Integrity Layer | 0/TBD | Not started | — |
 | 8. Structured BLOCKED Exit | v1.0 Integrity Layer | 0/TBD | Not started | — |
 
