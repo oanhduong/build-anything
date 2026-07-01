@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Integrity Layer
-status: in_progress
-last_updated: "2026-07-01T08:54:28.805Z"
+status: executing
+last_updated: "2026-07-01T08:59:25.320Z"
 last_activity: 2026-07-01 — Phase 06 Plan 01 complete (test-spec-gate.sh RED anchor + skills/spec/SKILL.md scaffold; Binary A/B/C fail vs unmodified stub-reject; D/E green)
 progress:
   total_phases: 4
@@ -55,3 +55,6 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - No-matcher PostToolUse entry (omit field entirely) = fires on all tool calls — same pattern as trace.sh
 - Phase 06 spec gate: test-spec-gate.sh CANONICAL pipeline uses awk+sed+shasum -a 256 (not sha256sum); VERIFY_CMD: exit 0 in every test PROGRESS.md to prevent PLAN-01 intercept (Pitfall 7)
 - Phase 06 Binary D/E stay GREEN at wave 0 (no spec gate in stub-reject yet); A/B/C fail — RED anchor established for plan 02 implementation
+- [Phase 06-spec-gate]: shasum -a 256 (not sha256sum) — macOS/Linux portable for SPEC-gate token computation
+- [Phase 06-spec-gate]: GATE-03 (no criteria section) subsumed by no confirm-token check — a malformed spec cannot have a valid token
+- [Phase 06-spec-gate]: .progress/SPEC.md self-write exempt from SPEC gate (same pattern as VERDICTS.md)
