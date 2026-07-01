@@ -3,9 +3,9 @@
 ## Current Position
 
 Phase: 05-verifier-independence
-Plan: 01 of 4 complete
+Plan: 02 of 4 complete
 Status: In progress
-Last activity: 2026-07-01 — Phase 05 Plan 01 complete (TDD scaffold for verifier independence)
+Last activity: 2026-07-01 — Phase 05 Plan 02 complete (verdict capture pipeline: verdicts-capture.sh, verifier.md schema, stub-reject.sh VERDICTS.md protection)
 
 ## Project Reference
 
@@ -29,3 +29,6 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - Tests are intentionally RED at Wave 0 — TDD anchor pattern; Wave 1/2 implementations make them GREEN
 - verdicts-capture.sh scaffold exits 0 unconditionally so ENFC checks pass before Wave 1 implementation
 - NON_BLOCKING exemption added for verdicts-capture.sh in test-enforcement.sh pre-install
+- verdicts-capture.sh uses awk (not python3) for ENFC-04 compliance; defensive multi-format jq handles string/array/object tool_response
+- VERDICTS.md write-once-by-hook: stub-reject.sh FILE_PATH_EARLY blocks direct writes; verdicts-capture.sh is sole write path
+- verifier.md PARTIAL verdict removed; REASON: renamed EVIDENCE:; VERIFIER-VERDICT: header required for capture
