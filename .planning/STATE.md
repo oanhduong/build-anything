@@ -1,3 +1,17 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: Integrity Layer
+status: completed
+last_updated: "2026-07-01T04:16:47.174Z"
+last_activity: 2026-07-01 — Phase 05 Plan 04 complete (verdicts-capture.sh wired as PostToolUse all-tools hook; install.sh deploys to ~/.claude; 6/6 + 32/32 tests GREEN; Phase 5 Verifier Independence ships)
+progress:
+  total_phases: 4
+  completed_phases: 1
+  total_plans: 4
+  completed_plans: 4
+---
+
 # State: build-anything
 
 ## Current Position
