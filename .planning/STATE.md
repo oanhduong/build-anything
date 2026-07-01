@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Integrity Layer
 status: executing
-last_updated: "2026-07-01T08:59:25.320Z"
-last_activity: 2026-07-01 — Phase 06 Plan 01 complete (test-spec-gate.sh RED anchor + skills/spec/SKILL.md scaffold; Binary A/B/C fail vs unmodified stub-reject; D/E green)
+last_updated: "2026-07-01T09:06:33.114Z"
+last_activity: 2026-07-01 — Phase 06 Plan 03 complete (full /spec skill with literal-confirm gate + Binary F round-trip; 7/7 spec-gate tests GREEN)
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # State: build-anything
@@ -17,9 +17,9 @@ progress:
 ## Current Position
 
 Phase: 06-spec-gate
-Plan: 01 of 3 complete
+Plan: 03 of 4 complete
 Status: In Progress
-Last activity: 2026-07-01 — Phase 06 Plan 01 complete (test-spec-gate.sh RED anchor + skills/spec/SKILL.md scaffold; Binary A/B/C fail vs unmodified stub-reject; D/E green)
+Last activity: 2026-07-01 — Phase 06 Plan 03 complete (full /spec skill with literal-confirm gate + Binary F round-trip; 7/7 spec-gate tests GREEN)
 
 ## Project Reference
 
@@ -39,6 +39,8 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - verdicts-capture.sh fully implemented (Wave 1); stop-hook two-gate flow implemented (Wave 2)
 - Phase 05 Plan 04: verdicts-capture.sh wired as PostToolUse all-tools hook in settings.json; deployed to ~/.claude via install.sh; 32/32 enforcement tests green
 - Phase 06 Plan 01: TDD anchor created — test-spec-gate.sh has 5 tests (A/B/C RED vs wave 0; D/E GREEN); skills/spec/SKILL.md scaffold deployed by install.sh glob
+- Phase 06 Plan 02: stub-reject.sh SPEC gate checks inserted (GATE-02/GATE-03); Binary A/B/C/D/E all GREEN; 32/32 enforcement tests pass
+- Phase 06 Plan 03: full /spec skill implemented (7 steps: interview, confirm gate, write-then-patch token, VERIFY_CMD derivation); Binary F round-trip added; 7/7 spec-gate tests GREEN
 
 ## Decisions
 
@@ -58,3 +60,5 @@ See: .planning/PROJECT.md (updated 2026-06-30)
 - [Phase 06-spec-gate]: shasum -a 256 (not sha256sum) — macOS/Linux portable for SPEC-gate token computation
 - [Phase 06-spec-gate]: GATE-03 (no criteria section) subsumed by no confirm-token check — a malformed spec cannot have a valid token
 - [Phase 06-spec-gate]: .progress/SPEC.md self-write exempt from SPEC gate (same pattern as VERDICTS.md)
+- [Phase 06-spec-gate]: Token computed from WRITTEN file (write PENDING then awk+sed+shasum patch) ensures byte-identity with stub-reject — eliminating normalization drift by construction
+- [Phase 06-spec-gate]: VERIFY_CMD derivation via sed Bash (not Edit tool) avoids Pitfall 5: triggering stub-reject on PROGRESS.md write before SPEC.md exists

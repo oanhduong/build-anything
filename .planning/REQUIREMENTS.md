@@ -15,10 +15,10 @@ Milestone v1.0 — Integrity Layer. Continues from validated Phase 0–3 baselin
 
 ### Spec + Plan Gate (A2 + B)
 
-- [ ] **GATE-01**: a new `/spec` skill produces `.progress/SPEC.md` via risk-driven interview; skill proposes draft, human must confirm before the spec is written
+- [x] **GATE-01**: a new `/spec` skill produces `.progress/SPEC.md` via risk-driven interview; skill proposes draft, human must confirm before the spec is written
 - [x] **GATE-02**: PreToolUse hook blocks any Write/Edit when `.progress/SPEC.md` is absent for the current task
 - [x] **GATE-03**: PreToolUse hook blocks when SPEC.md exists but has no `## Acceptance Criteria` section (malformed spec is no spec)
-- [ ] **GATE-04**: VERIFY_CMD stored in PROGRESS.md is derived from and matches the criteria in SPEC.md — generator cannot write a free-form VERIFY_CMD that bypasses real criteria
+- [x] **GATE-04**: VERIFY_CMD stored in PROGRESS.md is derived from and matches the criteria in SPEC.md — generator cannot write a free-form VERIFY_CMD that bypasses real criteria
 
 ### Intent-Aware Failure Library (A3)
 
@@ -55,10 +55,10 @@ Deferred — not in this milestone roadmap.
 | VERIF-01 | Phase 5 | Complete |
 | VERIF-02 | Phase 5 | Complete |
 | VERIF-03 | Phase 5 | Complete |
-| GATE-01 | Phase 6 | Pending |
+| GATE-01 | Phase 6 | Complete |
 | GATE-02 | Phase 6 | Complete |
 | GATE-03 | Phase 6 | Complete |
-| GATE-04 | Phase 6 | Pending |
+| GATE-04 | Phase 6 | Complete |
 | DIST-01 | Phase 7 | Pending |
 | DIST-02 | Phase 7 | Pending |
 | DIST-03 | Phase 7 | Pending |
