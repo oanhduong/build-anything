@@ -90,7 +90,7 @@ for hook in "$HOME/.claude/hooks/"*.sh; do
   else
     # Non-blocking hooks have no blocking messages — exempt from ENFC-03
     BASENAME=$(basename "$hook")
-    NON_BLOCKING="progress-after-edit.sh trace.sh bootstrap-project.sh load-lessons.sh lessons-on-error.sh lessons-post-write.sh"
+    NON_BLOCKING="progress-after-edit.sh trace.sh bootstrap-project.sh load-lessons.sh lessons-on-error.sh lessons-post-write.sh verdicts-capture.sh"
     if echo "$NON_BLOCKING" | grep -qw "$BASENAME"; then
       pass "ENFC-03: $(basename "$hook") has no blocking messages (non-blocking hook, exempt)"
     else
