@@ -57,7 +57,7 @@ the human sees it before confirming.
 
 After displaying the draft, state explicitly:
 
-"Type the literal word **confirm** to write this spec. Any other response — edits, 'yes',
+"Type the literal word confirm to write this spec. Any other response — edits, 'yes',
 'ok', 'looks good', 'approved' — will NOT write it; I will incorporate your changes and
 re-propose."
 
